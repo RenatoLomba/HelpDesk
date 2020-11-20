@@ -64,7 +64,7 @@
                       document.getElementById("senha").classList.add("border-danger");
                     </script>
                     <div class="text-danger">
-                      Usuário ou senha inválido(s)
+                      Usuário não encontrado
                     </div>
                   <?php } ?>
                 <?php } ?>
