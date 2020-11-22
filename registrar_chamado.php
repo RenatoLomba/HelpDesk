@@ -3,7 +3,7 @@
 session_start();
 
 //abre o arquivo
-$arquivo = fopen('chamados.txt', 'a');
+$arquivo = fopen('C:/xampp/app_help_desk/chamados.txt', 'a');
 
 //string dos dados do chamado
 $chamado = $_SESSION['id'] . '#' . $_SESSION['nome'] . '#';

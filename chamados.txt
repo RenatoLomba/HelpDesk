@@ -1,2 +1,0 @@
-1#Adm#Toner vazio#Impressora#Substituir Toner vazio no Faturamento...#
-2#User#Notebook não liga#Hardware#Não inicia o Sistema Operacional Windows...#

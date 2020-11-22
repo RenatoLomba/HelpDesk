@@ -6,12 +6,17 @@
 $chamados = [];
 
 //consulta de chamados abertos
-$arquivo = fopen('chamados.txt', 'r');
+$arquivo = fopen('C:/xampp/app_help_desk/chamados.txt', 'r');
 
 //percorre as linhas do arquivo
 while(!feof($arquivo)) {
   //recupera a linha atual do arquivo
   $linha = fgets($arquivo);
+  if($_SESSION['perfil'] == 'Usuário') {
+    if($_SESSION['id'] != substr($linha, 0, 1)) {
+      continue;
+    }
+  }
   $chamados[] = $linha;
 }
 fclose($arquivo);

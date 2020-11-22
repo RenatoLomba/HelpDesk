@@ -1,0 +1,5 @@
+1#Adm#Toner vazio#Impressora#Substituir Toner vazio no Faturamento...#
+2#User#Notebook não liga#Hardware#Não inicia o Sistema Operacional Windows...#
+3#Renato#Internet caiu#Rede#Não esta funcionando a internet do galpão de fios...#
+4#Matthew#ERP travou#Software#Programa erp esta travado, não consigo lançar notas...#
+1#Adm#Atolando papel#Impressora#Impressora esta atolando os papeis na hora da impressão...#
