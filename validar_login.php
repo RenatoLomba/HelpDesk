@@ -1,12 +1,19 @@
 <?php
 
+//inicio da SESSION
+session_start();
+
 $usuario_existe = false;
 $senha_correta = false;
+$id_usuario = null;
+$_SESSION['autenticado'] = false;
 
 //usuários do sistema
 $usuarios_app = [
-    ['email' => 'adm@teste.com.br', 'senha' => 'root'],
-    ['email' => 'user@teste.com.br', 'senha' => '1234'],
+    ['id' => 1, 'nome' => 'Adm', 'email' => 'adm@teste.com.br', 'senha' => 'root', 'perfil' => 'Administrativo'],
+    ['id' => 2, 'nome' => 'User', 'email' => 'user@teste.com.br', 'senha' => 'root', 'perfil' => 'Administrativo'],
+    ['id' => 3, 'nome' => 'Renato', 'email' => 'renato@teste.com.br', 'senha' => '1234', 'perfil' => 'Usuário'],
+    ['id' => 4, 'nome' => 'Matthew', 'email' => 'matthew@teste.com.br', 'senha' => '1234', 'perfil' => 'Usuário'],
 ];
 
 //validação do usuário
@@ -16,6 +23,9 @@ foreach($usuarios_app as $key => $value) {
         $usuario_existe = true;
         if($_POST['senha'] == $value['senha']) {
             $senha_correta = true;
+            $_SESSION['id'] = $value['id'];
+            $_SESSION['nome'] = $value['nome'];
+            $_SESSION['perfil'] = $value['perfil'];
         }
     }
 
@@ -23,8 +33,9 @@ foreach($usuarios_app as $key => $value) {
 
 //autenticação
 if($usuario_existe && $senha_correta) {
-    echo 'Usuário autenticado';
-} else if($usuario_existe && ($senha_correta == false)) {
+    $_SESSION['autenticado'] = true;
+    header('Location: home.php');
+} else if($usuario_existe && !$senha_correta) {
     header('Location: index.php?login=erro_senha&email=' . ($_POST['email']));
 } else {
     header('Location: index.php?login=erro_email');

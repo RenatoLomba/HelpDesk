@@ -1,66 +1,58 @@
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>App Help Desk</title>
+<!-- Script de validação da sessão -->
+<?php require_once("autenticador.php") ?>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<?php
 
-    <style>
-      .card-consultar-chamado {
-        padding: 30px 0 0 0;
-        width: 100%;
-        margin: 0 auto;
-      }
-    </style>
-  </head>
+$chamados = [];
 
-  <body>
+//consulta de chamados abertos
+$arquivo = fopen('chamados.txt', 'r');
 
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="#">
-        <img src="img/logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-        App Help Desk
-      </a>
-    </nav>
+//percorre as linhas do arquivo
+while(!feof($arquivo)) {
+  //recupera a linha atual do arquivo
+  $linha = fgets($arquivo);
+  $chamados[] = $linha;
+}
+fclose($arquivo);
 
-    <div class="container">    
-      <div class="row">
+$chamados = array_filter($chamados);
 
-        <div class="card-consultar-chamado">
-          <div class="card">
-            <div class="card-header">
-              Consulta de chamado
-            </div>
-            
+?>
+
+<!-- Estrutura principal do app -->
+<?php require_once("layout.php") ?>
+
+  <div class="card-consultar-chamado">
+    <div class="card">
+      <div class="card-header">
+        Consulta de chamado
+      </div>
+      
+      <div class="card-body">
+
+        <!-- Listagem dinâmica de chamados -->
+        <?php foreach($chamados as $key => $value) { ?>
+          <?php $dados = explode('#', $value); ?>
+          <div class="card mb-3 bg-light">
             <div class="card-body">
-              
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
-              </div>
-
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
-              </div>
-
-              <div class="row mt-5">
-                <div class="col-6">
-                  <button class="btn btn-lg btn-warning btn-block" type="submit">Voltar</button>
-                </div>
-              </div>
+              <h5 class="card-title"><?= $dados[2] ?></h5>
+              <h6 class="card-subtitle mb-2 text-muted"><?= $dados[3] ?></h6>
+              <p class="card-text"><?= $dados[4] ?></p>
+              <cite>Aberto por <?= $dados[1] ?></cite>
             </div>
+          </div>
+        <?php } ?>
+
+        <div class="row mt-5">
+          <div class="col-6">
+            <a href="home.php" class="btn btn-lg btn-warning btn-block">
+              Voltar
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </body>
-</html>
+  </div>
+
+<?php require_once("fim_layout.php") ?>
